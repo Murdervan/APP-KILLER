@@ -1,4 +1,12 @@
 # Windows-app-remover
+
+"I have a vision of creating a USB-based tool that automatically launches when plugged into a computer, allowing the user to choose exactly which built-in Windows apps should be uninstalled.
+
+The goal is to make Windows refurbishment and deployment faster, cleaner, and more user-controlled — without breaking system stability.
+
+This project is a step toward that vision, and community feedback and contributions are very welcome to help bring it to completion. - Murdervan"
+
+
 A PowerShell-based Windows 10 & 11 built-in app removal tool designed for PC refurbishment, deployment, and clean system setups.
 
 This project aims to reliably and safely remove unwanted built-in Windows applications, including AppX and provisioned packages, with logging, menu selection, and OneDrive full uninstall support.
