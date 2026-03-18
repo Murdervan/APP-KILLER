@@ -124,13 +124,13 @@ echo      [####      ] Loading GPU...
 timeout /t 1 >nul
 echo      [#####     ] Loading Storage...
 timeout /t 1 >nul
-echo      [##########] Done!!
+echo      [##########] Done.!
 timeout /t 1 >nul
 
 cls
 echo.
 echo      =========================================================================
-echo       QUICK SPEC INFO
+echo       QUICK SPEC INFO - WAIT IT CAN TAKE SOME TIME!
 echo      =========================================================================
 echo.
 
