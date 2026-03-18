@@ -2,7 +2,7 @@
 
 PowerShell tool for removing built-in Windows 10/11 apps for clean setups and system preparation.
 
-###Features
+### Features
 
 Removes AppX & provisioned packages
 
@@ -14,13 +14,13 @@ Logging with timestamps
 
 Portable (USB-ready)
 
-###Notes
+### Notes
 
 Some apps cannot be removed (system-protected)
 - Some apps require manual removal
 
 Script logs everything and fails safely
 
-###Contributing
+### Contributing
 
 Pull requests and improvements are welcome.
