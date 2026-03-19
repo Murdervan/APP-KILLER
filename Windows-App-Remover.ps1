@@ -8,12 +8,7 @@ Add-Type -AssemblyName System.Drawing
 
 # Sæt konsol til fuld skærm, grøn på sort
 $Host.UI.RawUI.WindowTitle = "APP KILLER v2.1 - MURDERVAN"
-mode con cols=180 lines=100
-# Sæt stor scroll buffer
-$buffer = $Host.UI.RawUI.BufferSize
-$buffer.Height = 3000
-$buffer.Width = 140
-$Host.UI.RawUI.BufferSize = $buffer
+mode con cols=200 lines=100
 $Host.UI.RawUI.BackgroundColor = "Black"
 $Host.UI.RawUI.ForegroundColor = "Green"
 Clear-Host
@@ -174,7 +169,7 @@ $Categories = @{
         @{N='Clock'; P='WindowsAlarms'}
         @{N='Windows Store'; P='WindowsStore'}
         @{N='Store Core'; P='Store'}
-        @{N='Windows Backup'; P='WindowsBackup'}
+        @{N='OneDrive'; P='OneDrive'}
         @{N='Quick Assist'; P='QuickAssist'}
     )
     "MEDIA" = @(
