@@ -233,6 +233,9 @@ set /p diskchoice=      Enter selection:
 )
 if /i "%diskchoice%"=="1" (
     cls
+echo ===============================================================
+echo                      APP lIST OVERVIEW
+echo ===============================================================
 echo SYSTEM
     echo   - Calculator
     echo   - Paint
