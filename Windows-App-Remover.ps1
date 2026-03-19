@@ -349,14 +349,12 @@ while ($true) {
 
         'Q' { 
             Clear-Host
-            Show-MatrixRain
             Write-Host 'SESSION TERMINATED' -ForegroundColor Red
             Start-Sleep 1
             Stop-Process -Id $PID 
         }
         'q' { 
             Clear-Host
-            Show-MatrixRain
             Write-Host 'SESSION TERMINATED' -ForegroundColor Red
             Start-Sleep 1
             Stop-Process -Id $PID 
