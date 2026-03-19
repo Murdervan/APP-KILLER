@@ -33,7 +33,7 @@ function Show-MatrixRain {
     0..($height-1) | ForEach-Object { Write-Host $blackLine -NoNewline; Write-Host "`r`n" -NoNewline }
 
     # Animation loop
-    for ($i = 0; $i -lt 30; $i++) {
+    for ($i = 0; $i -lt 3; $i++) {
         $screen = @()
         0..($height-1) | ForEach-Object { $screen += (" " * $width) }
 
@@ -161,6 +161,69 @@ function Remove-App {
     }
 }
 
+function Force-Remove-SpecialApps {
+
+    Write-Host "`n[!!] FORCING REMOVAL: OneDrive + Xbox" -ForegroundColor Red
+
+    # ===== ONEDRIVE =====
+    Write-Host "  [>>] FORCE KILL: OneDrive" -ForegroundColor Yellow
+
+    # Stop process
+    Get-Process OneDrive -ErrorAction SilentlyContinue | Stop-Process -Force
+
+    # Uninstall (system)
+    $oneDriveSystem = "$env:SystemRoot\SysWOW64\OneDriveSetup.exe"
+    $oneDriveSystem32 = "$env:SystemRoot\System32\OneDriveSetup.exe"
+
+    if (Test-Path $oneDriveSystem) {
+        Start-Process $oneDriveSystem "/uninstall" -NoNewWindow -Wait
+    }
+
+    if (Test-Path $oneDriveSystem32) {
+        Start-Process $oneDriveSystem32 "/uninstall" -NoNewWindow -Wait
+    }
+
+    # Remove leftovers
+    Remove-Item "$env:LOCALAPPDATA\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item "$env:PROGRAMDATA\Microsoft OneDrive" -Recurse -Force -ErrorAction SilentlyContinue
+
+    Write-Log "FORCE REMOVED: OneDrive"
+    Write-Host "      [NUKED]" -ForegroundColor Green
+
+
+    # ===== XBOX =====
+    Write-Host "  [>>] FORCE KILL: Xbox" -ForegroundColor Yellow
+
+    $xboxPackages = @(
+        "Microsoft.GamingApp",
+        "Microsoft.XboxApp",
+        "Microsoft.XboxGamingOverlay",
+        "Microsoft.XboxIdentityProvider",
+        "Microsoft.XboxSpeechToTextOverlay",
+        "Microsoft.Xbox.TCUI"
+    )
+
+    foreach ($pkg in $xboxPackages) {
+
+        Get-AppxPackage -AllUsers *$pkg* | ForEach-Object {
+            try {
+                Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction Stop
+                Write-Log "FORCE REMOVED: $pkg"
+            } catch {}
+        }
+
+        Get-AppxProvisionedPackage -Online | Where-Object {
+            $_.DisplayName -like "*$pkg*"
+        } | ForEach-Object {
+            try {
+                Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop
+            } catch {}
+        }
+    }
+
+    Write-Host "      [NUKED]" -ForegroundColor Green
+}
+
 # TARGET DATABASE (UNCHANGED)
 $Categories = @{
     "SYSTEM" = @(
@@ -190,13 +253,14 @@ $Categories = @{
     "COMMUNICATION" = @(
         @{N='Teams Personal'; P='Teams'}
         @{N='Skype'; P='SkypeApp'}
-        @{N='LinkedIn'; P='LinkedIn'}
         @{N='Mail & Calendar'; P='windowscommunicationsapps'}
         @{N='Outlook New'; P='OutlookForWindows'}
+        @{N='LinkedIn'; P='LinkedIn'}
     )
     "PRODUCTIVITY" = @(
         @{N='To Do'; P='Todos'}
         @{N='Sticky Notes'; P='StickyNotes'}
+        @{N='OneNote'; P='OneNote'}
         @{N='Office Hub'; P='MicrosoftOfficeHub'}
         @{N='Dev Home'; P='DevHome'}
     )
@@ -292,6 +356,9 @@ while ($true) {
                         Start-Sleep -Milliseconds 200
                     }
                 }
+
+Force-Remove-SpecialApps
+
                 Write-Host "`nSYSTEM CLEANSED" -ForegroundColor Green
                 Read-Host 'PRESS ENTER'
             }
