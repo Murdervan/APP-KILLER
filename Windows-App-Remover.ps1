@@ -293,6 +293,7 @@ $Categories = @{
         @{N='Phone Link'; P='YourPhone'}
         @{N='Family Safety'; P='MicrosoftFamily'}
         @{N='Store Ads'; P='StorePurchaseApp'}
+        @{N='Power Automate'; P='Microsoft.PowerAutomateDesktop'}
     )
 }
 
