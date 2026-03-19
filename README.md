@@ -20,7 +20,7 @@ Portable (USB-ready)
 
 See system spec (good for sale of your pc)
 - It can permanently delete files and also securely erase previously deleted ones
-  it does not delete existing files—only traces of files that have already been deleted.
+  it does not delete existing files—only traces of files that have already been deleted already.
   
 ### Notes
 
