@@ -178,6 +178,7 @@ $Categories = @{
         @{N='Camera'; P='WindowsCamera'}
         @{N='Voice Recorder'; P='SoundRecorder'}
         @{N='Photos'; P='Photos'}
+        @{N='Clipchamp'; P='Clipchamp'}
     )
     "XBOX" = @(
         @{N='Xbox App'; P='XboxApp'}
@@ -189,20 +190,18 @@ $Categories = @{
     "COMMUNICATION" = @(
         @{N='Teams Personal'; P='Teams'}
         @{N='Skype'; P='SkypeApp'}
+        @{N='LinkedIn'; P='LinkedIn'}
         @{N='Mail & Calendar'; P='windowscommunicationsapps'}
         @{N='Outlook New'; P='OutlookForWindows'}
     )
     "PRODUCTIVITY" = @(
         @{N='To Do'; P='Todos'}
         @{N='Sticky Notes'; P='StickyNotes'}
-        @{N='OneNote'; P='OneNote'}
         @{N='Office Hub'; P='MicrosoftOfficeHub'}
         @{N='Dev Home'; P='DevHome'}
     )
     "BLOAT" = @(
         @{N='Copilot'; P='Copilot'}
-        @{N='Clipchamp'; P='Clipchamp'}
-        @{N='LinkedIn'; P='LinkedIn'}
         @{N='Cortana'; P='Cortana'}
         @{N='Feedback Hub'; P='FeedbackHub'}
         @{N='Get Started'; P='Getstarted'}
@@ -230,9 +229,6 @@ $Categories = @{
         @{N='Phone Link'; P='YourPhone'}
         @{N='Family Safety'; P='MicrosoftFamily'}
         @{N='Store Ads'; P='StorePurchaseApp'}
-        @{N='Advertising XAML'; P='Advertising.Xaml'}
-        @{N='Microsoft Wallet'; P='Wallet'}
-        @{N='Microsoft Pay'; P='Payments'}
     )
 }
 
