@@ -8,17 +8,17 @@ How to use.
 
 ### Features
 
-ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (aurtor massgrave.dev)
+  - ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (aurtor massgrave.dev)
 
-Removes AppX & provisioned packages
+  - Removes AppX & provisioned packages
 
-Works on Windows 10 & 11
+  - Works on Windows 10 & 11
 
-Menu-based selection
+  - Menu-based selection
 
-Logging with timestamps
+  - Logging with timestamps
 
-Portable (USB-ready)
+  - Portable (USB-ready)
 
 See system spec (good for sale of your pc)
 - It can permanently delete files and also securely erase previously deleted ones.
