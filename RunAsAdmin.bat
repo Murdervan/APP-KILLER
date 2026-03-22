@@ -60,7 +60,8 @@ if not exist "%SCRIPT%" (
     goto MAINMENU
 )
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -WindowStyle Maximized -NoExit -File \"%SCRIPT%\"'"
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+"Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-NoExit','-File','%SCRIPT%'"
 
 timeout /t 2 /nobreak >nul
 goto MAINMENU
@@ -328,7 +329,6 @@ timeout /t 2 /nobreak >nul
 goto MAINMENU
 
 :EXIT
-color 0C
 cls
 echo.
 echo        █████╗  ██╗   ██╗   ███████╗

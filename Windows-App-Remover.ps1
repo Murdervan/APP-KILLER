@@ -8,7 +8,15 @@ Add-Type -AssemblyName System.Drawing
 
 # Sæt konsol til fuld skærm, grøn på sort
 $Host.UI.RawUI.WindowTitle = "APP KILLER v2.1 - MURDERVAN"
-mode con cols=200 lines=100
+# Størrelse på vindue og buffer
+$width = 110
+$height = 38
+$bufferHeight = 80   # Her kan du justere hvor langt du vil kunne scrolle
+
+$RawUI = $Host.UI.RawUI
+$RawUI.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
+$RawUI.BufferSize = New-Object System.Management.Automation.Host.Size($width, $bufferHeight)
+
 $Host.UI.RawUI.BackgroundColor = "Black"
 $Host.UI.RawUI.ForegroundColor = "Green"
 Clear-Host
