@@ -1,4 +1,4 @@
-# APÆ KILLER v2.1
+# APP KILLER v2.1
 <p align="center">
   <img src="image/folder1.1.png" width="49%">
   <img src="image/folder2.1.png" width="49%">
