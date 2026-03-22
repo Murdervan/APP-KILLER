@@ -23,6 +23,7 @@ echo      [1] Launch APP KILLER Terminal (Admin)
 echo      [2] View Activity Logs
 echo      [3] System Information
 echo      [4] About APP KILLER
+echo      [5] ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (author massgrave.dev)
 echo      [Q] Exit Panel
 echo.
 echo      =========================================================================
@@ -34,6 +35,7 @@ if /i "%choice%"=="1" goto LAUNCH
 if /i "%choice%"=="2" goto LOGS
 if /i "%choice%"=="3" goto SYSINFO
 if /i "%choice%"=="4" goto ABOUT
+if /i "%choice%"=="5" goto MASSGRAVE
 if /i "%choice%"=="Q" goto EXIT
 if /i "%choice%"=="q" goto EXIT
 
@@ -210,6 +212,7 @@ echo Description:
 echo   APP KILLER is an advanced Windows utility designed to
 echo   clean up your system and remove unwanted apps.
 echo   Works seamlessly on Windows 10 and Windows 11.
+echo   YOU CAN ALSO ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE. (aurtor massgrave.dev)
 echo.
 echo Features:
 echo   - Safely remove bloatware and unnecessary apps
@@ -310,6 +313,18 @@ echo OTHER
 )
 if /i "%diskchoice%"=="B" goto MAINMENU
 
+goto MAINMENU
+
+:MASSGRAVE
+cls
+echo.
+echo      [INFO] Launching Activation Script (Admin)...
+echo.
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+"Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -NoExit -Command \"irm https://get.activated.win | iex\"'"
+
+timeout /t 2 /nobreak >nul
 goto MAINMENU
 
 :EXIT
