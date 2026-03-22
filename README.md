@@ -1,6 +1,7 @@
 # Windows-app-remover
 <p align="center">
-  <img src="image/folder1.1.png" width="55%">
+  <img src="image/folder1.1.png" width="50%">
+  <img src="image/folder2.1" width="50%">
   <img src="image/massgrave.dev.png" width="44%">
 </p>
 
