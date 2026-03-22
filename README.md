@@ -8,6 +8,8 @@ How to use.
 
 ### Features
 
+ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (aurtor massgrave.dev)
+
 Removes AppX & provisioned packages
 
 Works on Windows 10 & 11
