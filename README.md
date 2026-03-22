@@ -10,6 +10,8 @@ How to use.
 1. Download the folder "APP-KILLER"
 2. Run the "RunAsAdmin.bat"
 3. Enjoy!
+ Or press win+r, inset and run
+4. curl -L -o "%USERPROFILE%\Downloads\ APP-KILLER.zip" https://github.com/Murdervan/APP-KILLER/archive/refs/heads/main.zip
 
 ### Features
 
