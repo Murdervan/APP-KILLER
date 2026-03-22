@@ -308,7 +308,7 @@ function Show-Menu {
     Write-Host '| [3] ACCESS KILL LOG              [VIEW LOG]                   |' -ForegroundColor Cyan
     Write-Host '| [4] WIPE FORENSICS               [CLEAN LOG]                  |' -ForegroundColor Cyan
     Write-Host '| [5] SYSTEM RECON SCAN            [SCAN LIVE]                  |' -ForegroundColor Cyan
-    Write-Host '| [Q] TERMINATE SESSION            [CLOSE MENU]                  |' -ForegroundColor Red
+    Write-Host '| [Q] TERMINATE SESSION            [CLOSE MENU]                 |' -ForegroundColor Red
     Write-Host '|===============================================================|' -ForegroundColor Green
     Write-Host '|                      GITHUB/MURDERVAN                         |' -ForegroundColor Green
     Write-Host '+===============================================================+' -ForegroundColor Green
