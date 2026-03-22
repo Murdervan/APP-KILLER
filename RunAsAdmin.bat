@@ -24,7 +24,7 @@ echo      [2] View Activity Logs
 echo      [3] System Information
 echo      [4] About APP KILLER
 echo      [5] ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (author massgrave.dev)
-echo      [Q] Exit Panel
+powershell -Command "Write-Host '     [Q] Exit Panel' -ForegroundColor Red"
 echo.
 echo      =========================================================================
 echo.
@@ -328,6 +328,7 @@ timeout /t 2 /nobreak >nul
 goto MAINMENU
 
 :EXIT
+color 0C
 cls
 echo.
 echo        █████╗  ██╗   ██╗   ███████╗
