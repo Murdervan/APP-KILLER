@@ -248,7 +248,6 @@ $Categories = @{
         @{N='Music'; P='ZuneMusic'}
         @{N='Camera'; P='WindowsCamera'}
         @{N='Voice Recorder'; P='SoundRecorder'}
-        @{N='Photos'; P='Photos'}
         @{N='Clipchamp'; P='Clipchamp'}
     )
     "XBOX" = @(
