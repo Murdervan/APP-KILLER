@@ -255,7 +255,6 @@ echo MEDIA
     echo   - Music
     echo   - Camera
     echo   - Voice Recorder
-    echo   - Photos
     echo   - Clipchamp
     echo.  
 echo XBOX
