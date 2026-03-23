@@ -18,7 +18,7 @@ curl -L -o "%USERPROFILE%\Downloads\ APP-KILLER.zip" https://github.com/Murderva
 
 ### Features
 
-  - ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (aurtor massgrave.dev)
+  - ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE (aurtor https://massgrave.dev)
 
   - Removes AppX & provisioned packages
 
