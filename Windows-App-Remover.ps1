@@ -329,26 +329,37 @@ while ($true) {
 
     switch ($choice) {
 
-        '1' {
-            Clear-Host
-            $indexMap = @{}
-            $counter = 1
-            foreach ($cat in $Categories.Keys) {
-                Write-Host "`n=== $cat TARGETS ===" -ForegroundColor Cyan
-                foreach ($app in $Categories[$cat]) {
-                    Write-Host "  [$counter] $($app.N)"
-                    $indexMap[$counter] = $app
-                    $counter++
-                }
+      '1' {
+    while ($true) {
+        Clear-Host
+        $indexMap = @{}
+        $counter = 1
+
+        foreach ($cat in $Categories.Keys) {
+            Write-Host "`n=== $cat TARGETS ===" -ForegroundColor Cyan
+            foreach ($app in $Categories[$cat]) {
+                Write-Host "  [$counter] $($app.N)"
+                $indexMap[$counter] = $app
+                $counter++
             }
-            $sel = Read-Host "`nTARGET NUMBER > "
-            if ($indexMap.ContainsKey([int]$sel)) {
-                $app = $indexMap[[int]$sel]
-                Remove-App $app.N $app.P
-            }
-            Write-Host "`nSTRIKE COMPLETE" -ForegroundColor Green
-            Read-Host 'PRESS ENTER'
         }
+
+        Write-Host "`n[B] BACK TO MAIN MENU" -ForegroundColor Yellow
+        $sel = Read-Host "`nTARGET NUMBER > "
+
+        if ($sel -eq 'B' -or $sel -eq 'b') {
+            break
+        }
+
+        if ($indexMap.ContainsKey([int]$sel)) {
+            $app = $indexMap[[int]$sel]
+            Remove-App $app.N $app.P
+        }
+
+        Write-Host "`nSTRIKE COMPLETE" -ForegroundColor Green
+        Start-Sleep 1
+    }
+}
 
         '2' {
             Clear-Host
