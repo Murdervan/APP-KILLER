@@ -49,21 +49,42 @@ goto MAINMENU
 cls
 echo.
 echo      [INFO] Launching APP KILLER with Admin Privileges...
+echo      [INFO] Awaiting admin approval...
 echo.
 
 set "SCRIPT=%~dp0Windows-App-Remover.ps1"
 
 if not exist "%SCRIPT%" (
     echo      [ERROR] Script not found: %SCRIPT%
-    echo.
     pause
     goto MAINMENU
 )
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-"Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-NoExit','-File','%SCRIPT%'"
+:: Lav midlertidig PowerShell-fil til at starte script med admin
+set "TMPPS=%TEMP%\Start-AppKiller.ps1"
+(
+echo try {
+echo     Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-NoExit','-File','"%SCRIPT%"'
+echo } catch {
+echo     exit 1
+echo }
+) > "%TMPPS%"
 
-timeout /t 2 /nobreak >nul
+:: Kør midlertidig fil
+powershell -NoProfile -ExecutionPolicy Bypass -File "%TMPPS%"
+
+:: Hvis brugeren trykkede Nej → Start-Process fejlede
+if %errorlevel% neq 0 (
+    echo.
+    echo      [WARNING] Access denied by user.
+    echo      Returning to main menu...
+    timeout /t 3 /nobreak >nul
+)
+
+:: Slet midlertidig fil
+del "%TMPPS%" >nul 2>&1
+
+:: Gå tilbage til hovedmenu
 goto MAINMENU
 
 :LOGS
@@ -322,9 +343,9 @@ echo      [INFO] Launching Activation Script (Admin)...
 echo.
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-"Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -NoExit -Command \"irm https://get.activated.win | iex\"'"
+"Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"irm https://get.activated.win | iex; exit\"'"
 
-timeout /t 2 /nobreak >nul
+timeout /t 3 /nobreak >nul
 goto MAINMENU
 
 :EXIT
