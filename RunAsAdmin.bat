@@ -60,7 +60,6 @@ if not exist "%SCRIPT%" (
     goto MAINMENU
 )
 
-:: Lav midlertidig PowerShell-fil til at starte script med admin
 set "TMPPS=%TEMP%\Start-AppKiller.ps1"
 (
 echo try {
@@ -70,10 +69,8 @@ echo     exit 1
 echo }
 ) > "%TMPPS%"
 
-:: Kør midlertidig fil
 powershell -NoProfile -ExecutionPolicy Bypass -File "%TMPPS%"
 
-:: Hvis brugeren trykkede Nej → Start-Process fejlede
 if %errorlevel% neq 0 (
     echo.
 powershell -Command "Write-Host '     [WARNING] Access denied by user.' -ForegroundColor Red"
@@ -81,10 +78,8 @@ powershell -Command "Write-Host '     [WARNING] Access denied by user.' -Foregro
     timeout /t 3 /nobreak >nul
 )
 
-:: Slet midlertidig fil
 del "%TMPPS%" >nul 2>&1
 
-:: Gå tilbage til hovedmenu
 goto MAINMENU
 
 :LOGS
