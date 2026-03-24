@@ -229,7 +229,7 @@ echo Description:
 echo   APP KILLER is an advanced Windows utility designed to
 echo   clean up your system and remove unwanted apps.
 echo   Works seamlessly on Windows 10 and Windows 11.
-echo   YOU CAN ALSO ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE. (aurtor massgrave.dev)
+echo   YOU CAN ALSO ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE. (author massgrave.dev)
 echo.
 echo Features:
 echo   - Safely remove bloatware and unnecessary apps
