@@ -76,7 +76,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%TMPPS%"
 :: Hvis brugeren trykkede Nej → Start-Process fejlede
 if %errorlevel% neq 0 (
     echo.
-    echo      [WARNING] Access denied by user.
+powershell -Command "Write-Host '     [WARNING] Access denied by user.' -ForegroundColor Red"
     echo      Returning to main menu...
     timeout /t 3 /nobreak >nul
 )
