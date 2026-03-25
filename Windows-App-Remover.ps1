@@ -362,26 +362,38 @@ while ($true) {
 }
 
         '2' {
-            Clear-Host
-            Write-Host ''
-            Write-Host '          NUCLEAR PROTOCOL ACTIVATED' -ForegroundColor Red -BackgroundColor Black
-            Write-Host ''
-            $conf = Read-Host 'ENTER "NUKE" TO KILL/REMOVE ALL APPS > '
-            if ($conf -eq 'NUKE') {
-                Write-Host 'DEPLOYING NUCLEAR STRIKE...' -ForegroundColor Red
-                foreach ($cat in $Categories.Keys) {
-                    foreach ($app in $Categories[$cat]) {
-                        Remove-App $app.N $app.P
-                        Start-Sleep -Milliseconds 200
-                    }
+    while ($true) {
+        Clear-Host
+        Write-Host ''
+        Write-Host '          NUCLEAR PROTOCOL ACTIVATED' -ForegroundColor Red
+        Write-Host ''
+        Write-Host 'ENTER "NUKE" TO KILL/REMOVE ALL APPS >' -ForegroundColor Red
+        Write-Host '[B]    BACK TO MAIN MENU' -ForegroundColor Yellow
+        Write-Host ''
+
+        $conf = Read-Host 'ENTER COMMAND > '
+
+        if ($conf -eq 'NUKE') {
+            Write-Host 'DEPLOYING NUCLEAR STRIKE...' -ForegroundColor Red
+            
+            foreach ($cat in $Categories.Keys) {
+                foreach ($app in $Categories[$cat]) {
+                    Remove-App $app.N $app.P
+                    Start-Sleep -Milliseconds 200
                 }
-
-Force-Remove-SpecialApps
-
-                Write-Host "`nSYSTEM CLEANSED" -ForegroundColor Green
-                Read-Host 'PRESS ENTER'
             }
+
+            Force-Remove-SpecialApps
+
+            Write-Host "`nSYSTEM CLEANSED" -ForegroundColor Green
+            Read-Host 'PRESS ENTER'
         }
+
+        elseif ($conf -eq 'B' -or $conf -eq 'b') {
+            break
+        }
+    }
+}
 
         '3' {
             Clear-Host
