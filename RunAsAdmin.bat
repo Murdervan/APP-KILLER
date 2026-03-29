@@ -341,12 +341,10 @@ echo.
 set "RUNPS=%TEMP%\Run-Massgrave.ps1"
 set "STARTPS=%TEMP%\Start-Activation.ps1"
 
-:: Massgrave script
 (
 echo irm https://get.activated.win ^| iex
 ) > "%RUNPS%"
 
-:: Admin launcher (FIXED QUOTING)
 (
 echo try {
 echo     $file = "%RUNPS%"
