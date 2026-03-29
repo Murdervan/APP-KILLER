@@ -229,7 +229,7 @@ echo Description:
 echo   APP KILLER is an advanced Windows utility designed to
 echo   clean up your system and remove unwanted apps.
 echo   Works seamlessly on Windows 10 and Windows 11.
-echo   YOU CAN ALSO ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE. (author massgrave.dev)
+echo   YOU CAN ALSO ACTIVATE WINDOWS 10-11 OR OFFICE PACKAGE. (aurtor massgrave.dev)
 echo.
 echo Features:
 echo   - Safely remove bloatware and unnecessary apps
@@ -335,12 +335,38 @@ goto MAINMENU
 cls
 echo.
 echo      [INFO] Launching Activation Script (Admin)...
+echo      [INFO] Awaiting admin approval...
 echo.
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-"Start-Process PowerShell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"irm https://get.activated.win | iex; exit\"'"
+set "RUNPS=%TEMP%\Run-Massgrave.ps1"
+set "STARTPS=%TEMP%\Start-Activation.ps1"
 
-timeout /t 3 /nobreak >nul
+:: Massgrave script
+(
+echo irm https://get.activated.win ^| iex
+) > "%RUNPS%"
+
+:: Admin launcher (FIXED QUOTING)
+(
+echo try {
+echo     $file = "%RUNPS%"
+echo     Start-Process -FilePath "powershell.exe" -Verb RunAs -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File","`"$file`""
+echo } catch {
+echo     exit 1
+echo }
+) > "%STARTPS%"
+
+powershell -NoProfile -ExecutionPolicy Bypass -File "%STARTPS%"
+
+if %errorlevel% neq 0 (
+    echo.
+    powershell -Command "Write-Host '     [WARNING] Access denied by user.' -ForegroundColor Red"
+    echo      Returning to main menu...
+    timeout /t 3 /nobreak >nul
+)
+
+del "%STARTPS%" >nul 2>&1
+
 goto MAINMENU
 
 :EXIT
