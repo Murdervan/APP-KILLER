@@ -33,7 +33,7 @@ curl -L -o "%USERPROFILE%\Downloads\ APP-KILLER.zip" https://github.com/Murderva
 
   - Portable USB-ready <b>(recommend)</b>
 
-See system spec (good for sale of your pc)
+See system spec (good for sale or buying a pc)
 - It can permanently delete files and also securely erase previously deleted ones.
 - It does not delete existing files ONLY traces of files that have already been deleted already.
   
