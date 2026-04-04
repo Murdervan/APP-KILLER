@@ -13,7 +13,7 @@ PowerShell tool for removing built-in Windows 10/11 apps for clean setups and sy
 
    <b>Or press WIN+R, inset and run. for easy and fast download</b>
 ```powershell
-curl -L -o "%USERPROFILE%\Downloads\ APP-KILLER.zip" https://github.com/Murdervan/APP-KILLER/archive/refs/heads/main.zip
+curl -l -o "%USERPROFILE%\Downloads\ APP-KILLER.zip" https://github.com/Murdervan/APP-KILLER/archive/refs/heads/main.zip
 ```
 
 ### Features
