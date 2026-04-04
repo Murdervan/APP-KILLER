@@ -39,7 +39,7 @@ See system spec (good for sale or buying a pc)
   
 ### Notes
 
-<b>I recommend useing s USB drive!</b>
+<b>I recommend using a USB drive!</b>
 
 Some apps cannot be removed (system-protected)
 - Some apps require manual removal
