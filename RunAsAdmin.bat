@@ -314,11 +314,6 @@ echo 3D / LEGACY
     echo   - Print 3D
     echo   - Paint 3D
     echo.
-echo EXTENSIONS
-    echo   - HEIF Image Extensions
-    echo   - Web Media Extensions
-    echo   - Raw Image Extension
-    echo.
 echo OTHER
     echo   - Phone Link
     echo   - Family Safety
