@@ -291,11 +291,7 @@ $Categories = @{
         @{N='Print 3D'; P='Print3D'}
         @{N='Paint 3D'; P='MSPaint'}
     )
-    "EXTENSIONS" = @(
-        @{N='HEIF Image Extensions'; P='HEIFImageExtension'}
-        @{N='Web Media Extensions'; P='WebMediaExtensions'}
-        @{N='Raw Image Extension'; P='RawImageExtension'}
-    )
+  
     "OTHER" = @(
         @{N='Phone Link'; P='YourPhone'}
         @{N='Family Safety'; P='MicrosoftFamily'}
