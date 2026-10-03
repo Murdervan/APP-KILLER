@@ -154,38 +154,42 @@ echo      ======================================================================
 echo.
 
 :: --- OS ---
-for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_OperatingSystem).Caption"') do set OSNAME=%%A
-for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_OperatingSystem).Version"') do set OSVER=%%A
+for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_OperatingSystem).Caption"') do set "OSNAME=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_OperatingSystem).Version"') do set "OSVER=%%A"
 
 :: --- CPU ---
-for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_Processor | Select-Object -First 1 -ExpandProperty Name)"') do set CPU=%%A
+for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_Processor | Select-Object -First 1 -ExpandProperty Name)"') do set "CPU=%%A"
 
 :: --- RAM ---
-for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory"') do set RAM=%%A
-set /a RAMGB=%RAM:~0,-9%
+for /f "delims=" %%A in ('powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 0)"') do set "RAMGB=%%A"
 
 :: --- GPU ---
-for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-CimInstance Win32_VideoController | Where-Object {$_.Status -eq 'OK'} | Select-Object -First 1 -ExpandProperty Name)"') do set GPU=%%A
+for /f "delims=" %%A in ('powershell -NoProfile -Command "$gpu = Get-CimInstance Win32_VideoController | Where-Object { $_.Name -match 'NVIDIA|GeForce|RTX|GTX' } | Select-Object -First 1; if ($gpu) { $gpu.Name } else { (Get-CimInstance Win32_VideoController | Where-Object { $_.Status -eq 'OK' } | Select-Object -First 1).Name }"') do set "GPU=%%A"
 
-:: --- GPU VRAM
+:: --- GPU VRAM (WMI fallback) ---
 set "VRAMGB=Unknown"
-for /f "delims=" %%A in ('powershell -NoProfile -Command "try { $gpu = Get-CimInstance Win32_VideoController | Select-Object -First 1; if ($gpu.AdapterRAM) { [math]::Round($gpu.AdapterRAM / 1GB) } } catch { '' }"') do set "VRAMGB=%%A"
-if "!VRAMGB!"=="" set "VRAMGB=Unknown"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "$gpu = Get-CimInstance Win32_VideoController | Where-Object { $_.Name -match 'NVIDIA|GeForce|RTX|GTX' } | Select-Object -First 1; if (-not $gpu) { $gpu = Get-CimInstance Win32_VideoController | Where-Object { $_.Status -eq 'OK' } | Select-Object -First 1 }; if ($gpu -and $gpu.AdapterRAM -gt 0) { [math]::Round($gpu.AdapterRAM / 1GB) } else { 'Unknown' }"') do set "VRAMGB=%%A"
 
-:: --- Drives ---
-for /f "delims=" %%A in ('powershell -NoProfile -Command "(Get-PSDrive C).Used + (Get-PSDrive C).Free"') do set CDRIVE=%%A
-set /a CGB=%CDRIVE:~0,-9%
-for /f "delims=" %%A in ('powershell -NoProfile -Command "if (Test-Path D:) { (Get-PSDrive D).Used + (Get-PSDrive D).Free } else { 0 }"') do set DDRIVE=%%A
-if not %DDRIVE%==0 set /a DGB=%DDRIVE:~0,-9%
+:: --- Try NVIDIA-SMI if installed (more accurate for NVIDIA cards) ---
+if /i "%VRAMGB%"=="Unknown" (
+    for /f "delims=" %%A in ('powershell -NoProfile -Command "if (Get-Command nvidia-smi -ErrorAction SilentlyContinue) { & nvidia-smi --query-gpu=memory.total --format=csv,noheader 2>$null | Select-Object -First 1 } else { 'Unknown' }"') do set "VRAMRAW=%%A"
+    if defined VRAMRAW if not "%VRAMRAW%"=="Unknown" (
+        set "VRAMGB=%VRAMRAW:~0,-4%"
+        set /a VRAMGB=%VRAMGB% / 1024
+    )
+)
 
 :: --- Output ---
+echo.
 echo      - OS: %OSNAME% - Version %OSVER%
 echo      - CPU: %CPU%
 echo      - GPU: %GPU%
-echo      - GPU VRAM: !VRAMGB! GB
+echo      - GPU VRAM: %VRAMGB% GB
 echo      - RAM: %RAMGB% GB
-echo      - C: Drive: %CGB% GB
-if not %DDRIVE%==0 echo      - D: Drive: %DGB% GB
+for /f "delims=" %%A in ('powershell -NoProfile -Command "Get-CimInstance Win32_LogicalDisk | ForEach-Object { $sizeGB = [math]::Round($_.Size / 1GB, 0); if ($_.Size -gt 0) { Write-Output ('- ' + $_.DeviceID + ' Drive: ' + $sizeGB + ' GB') } }"') do (
+    echo      %%A
+)
+
 echo.
 echo      =========================================================================
 echo.
@@ -197,11 +201,16 @@ set /p diskchoice=      Enter selection:
 if /i "%diskchoice%"=="C" (
     cls
     echo.
-    echo      [INFO] Cleaning free space on C: and D: drives...
+    echo      [INFO] Cleaning free space on all disks...
     echo      This may take a long time depending on drive size.
     echo.
-    cipher /w:C:
-    if exist D: cipher /w:D:
+    for /f "skip=1" %%A in ('powershell -NoProfile -Command "Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty DeviceID"') do (
+        set "DRV=%%A"
+        if not "!DRV!"=="" (
+            echo       Cleaning !DRV!:
+            cipher /w:!DRV!:
+        )
+    )
     echo.
     echo      [INFO] Drive cleanup complete.
     pause
@@ -210,6 +219,7 @@ if /i "%diskchoice%"=="C" (
 if /i "%diskchoice%"=="B" goto MAINMENU
 
 goto SYSINFO
+
 
 pause
 endlocal
@@ -314,6 +324,11 @@ echo 3D / LEGACY
     echo   - Print 3D
     echo   - Paint 3D
     echo.
+echo EXTENSIONS
+    echo   - HEIF Image Extensions
+    echo   - Web Media Extensions
+    echo   - Raw Image Extension
+    echo.
 echo OTHER
     echo   - Phone Link
     echo   - Family Safety
@@ -336,10 +351,12 @@ echo.
 set "RUNPS=%TEMP%\Run-Massgrave.ps1"
 set "STARTPS=%TEMP%\Start-Activation.ps1"
 
+:: Massgrave script
 (
 echo irm https://get.activated.win ^| iex
 ) > "%RUNPS%"
 
+:: Admin launcher (FIXED QUOTING)
 (
 echo try {
 echo     $file = "%RUNPS%"
